@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from .models import MenuItem, Booking, Menu
 from .serializers import MenuItemSerializer, BookingSerializer, UserSerializer, MenuSerializer 
 from django.shortcuts import render
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.response import Response
 
 def index(request):
     return render(request, 'index.html', {})
@@ -29,6 +30,12 @@ class UserViewSet(viewsets.ModelViewSet):
 class MenuViewSet(viewsets.ModelViewSet):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
+    permission_classes = [AllowAny]
+
+    def list(self, request, *args, **kwargs):
+        print("GET request received.")  # Debugging line
+        print(self.queryset.all())  # This will print the queryset to the terminal
+        return super().list(request, *args, **kwargs)
 
 class MenuItemView(generics.ListCreateAPIView):
     queryset = Menu.objects.all()

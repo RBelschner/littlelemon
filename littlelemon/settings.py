@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'restaurant',
     'rest_framework',
+    'rest_framework.authtoken',
     'djoser',
 
 ]
@@ -52,6 +53,27 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Default
+    # 'allauth.account.auth_backends.AuthenticationBackend',  # If using django-allauth
+]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # If using JWT
+        'rest_framework.authentication.BasicAuthentication',  # Optional basic auth
+ 
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
+
 
 ROOT_URLCONF = 'littlelemon.urls'
 
@@ -78,20 +100,14 @@ WSGI_APPLICATION = 'littlelemon.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default':{
-        'ENGINE': 'django.db.backends.sqlite3', 
-        'NAME': BASE_DIR / 'db.sqlite3',
-        },
-'mydb': {
-    'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'LittleLemon',   
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'capstone',   
         'USER': 'root',   
         'PASSWORD': '',   
         'HOST': '127.0.0.1',   
         'PORT': '3306',   
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"   
-        }}}
+        }}
 
 
 

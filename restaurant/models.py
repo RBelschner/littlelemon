@@ -20,10 +20,13 @@ class Menu(models.Model):
 
 
 class Booking(models.Model):
-    customer_name = models.CharField(max_length=200)
+    #customer_name = models.CharField(max_length=200)
+    #booking_date = models.IntegerField()
+    #number_of_guests = models.IntegerField()
+    #special_requests = models.TextField(blank=True, null=True)
+    name = models.CharField(max_length=255, default='Untitled')
     booking_date = models.DateTimeField()
     number_of_guests = models.IntegerField()
-    special_requests = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f"Booking for {self.customer_name} on {self.booking_date}"

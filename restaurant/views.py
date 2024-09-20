@@ -12,10 +12,12 @@ def index(request):
 class MenuItemViewSet(viewsets.ModelViewSet):
     queryset = MenuItem.objects.all()
     serializer_class = MenuItemSerializer
+    permission_classes = [AllowAny]
 
 class SingleMenuItemViewSet(viewsets.ModelViewSet):
     queryset = MenuItem.objects.all()
     serializer_class = MenuItemSerializer
+    permission_classes = [AllowAny]
 
 class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all()  
@@ -25,7 +27,7 @@ class BookingViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
    queryset = User.objects.all()
    serializer_class = UserSerializer
-   permission_classes = [permissions.IsAuthenticated] 
+   permission_classes = [AllowAny] 
 
 class MenuViewSet(viewsets.ModelViewSet):
     queryset = Menu.objects.all()
@@ -40,7 +42,7 @@ class MenuViewSet(viewsets.ModelViewSet):
 class MenuItemView(generics.ListCreateAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [AllowAny]
 
 class SingleMenuItemView(generics.RetrieveUpdateAPIView):
     queryset = Menu.objects.all()

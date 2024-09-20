@@ -7,17 +7,18 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 router = DefaultRouter()
 router.register(r'menu', MenuViewSet, basename='menu-items')
-router.register(r'menu/<int:pk>', SingleMenuItemViewSet, basename='single-menu-item')
+#router.register(r'menu/<int:pk>', SingleMenuItemViewSet, basename='single-menu-item')
 router.register(r'bookings', BookingViewSet, basename='bookings')
 router.register(r'tables', views.BookingViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('api/menu/', views.MenuItemViewSet.as_view({'get': 'list', 'post': 'create'})),
-    path('menu/<int:pk>/', views.SingleMenuItemViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
+    #path('api/menu/', views.MenuItemViewSet.as_view({'get': 'list', 'post': 'create'})),
+    #path('menu/<int:pk>/', views.SingleMenuItemViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'})),
     path('api-token-auth/', obtain_auth_token),
     path('api/', include(router.urls)),
-    path('booking/', include(router.urls)),
+    path('api/booking/', views.BookingViewSet.as_view({'get': 'list', 'post': 'create'})),
     path('auth/', include('djoser.urls')),
     path('auth/token/', obtain_auth_token),
+    path('auth/', include('djoser.urls.jwt')), 
 ]
